@@ -24,6 +24,36 @@ body {
   justify-content: space-between;
   margin-bottom: 30px;
 }
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.stepper {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.step {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  background: lightgray;
+  text-align: center;
+}
+
+.step.active {
+  background: blue;
+  color: white;
+}
+
+.step.completed {
+  background: green;
+  color: white;
+}
 
 .step {
   width: 50px;

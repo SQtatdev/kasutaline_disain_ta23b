@@ -1,28 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="et">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3. samm - Tellimuse lõpetamine</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
-  <div class="container">
-
-    <div class="steps">
-      <div class="step">1</div>
-      <div class="step">2</div>
-      <div class="step active">3</div>
-      <h3> Thanks!</h3>
+    <div class="container">
+        <div class="stepper">
+            <div class="step completed">1</div>
+            <div class="step completed">2</div>
+            <div class="step active">3</div>
+        </div>
+        <h2>Aitäh tellimuse eest!</h2>
+        <p id="thanksMessage"></p>
+        <a href="invoice.pdf" download>Laadi alla arve</a>
     </div>
-
-    <div class="thank-you-section">
-      <h1>Thank You!</h1>
-      <p>Aitäh Vjatseslav Rovlin, et oled meie klient!</p>
-      <p>Tellimus on kätte saadud ja täidetakse kohe peale arve laekumist.</p>
-      <p>Arve ja tellimuse kokkuvõte on saadetud meilile **email@gmail.com**.</p>
-      <a href="invoice.pdf" class="download-link">Link arve alla laadimiseks</a>
-    </div>
-  </div>
 </body>
 </html>

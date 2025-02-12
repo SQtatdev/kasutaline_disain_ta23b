@@ -1,49 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="et">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Domain Search</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1. samm - Domeeni valik</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
-  <div class="container">
-    <div class="steps">
-      <div class="step active">1</div>
-      <h3> Find Domain</h3>
-      <div class="step">2</div>
-      <div class="step">3</div>
-    </div>
-
-    <div class="domain-search">
-      <input type="text" placeholder="Enter domain name" id="domain-input">
-      <select>
-        <option>.ee</option>
-        <option>.com</option>
-        <option>.org</option>
-      </select>
-      <button>OTSI</button>
-    </div>
-
-    <div class="domain-status success">
-      <p>vjatseslavrovlin.ee is available.</p>
-    </div>
-
-    <div class="order-section">
-      <div class="order-summary">
-        <h3>Tellimus</h3>
-        <div class="order-item">
-          <span>vjatseslavrovlin.ee</span>
-          <span> (1 aasta) 8.37 € + km</span>
-          <button class="cancel-button">✖</button>
+    <div class="container">
+        <div class="stepper">
+            <div class="step active">1</div>
+            <div class="step">2</div>
+            <div class="step">3</div>
         </div>
-        <div class="order-total">
-          <span>8.37 € + km</span>
-          <span>(10.21 €)</span>
-        </div>
-      </div>
-      <a href="step2.html" class="continue-button">Jätka</a>
+        <h2>Vali domeen</h2>
+        <form id="domainForm">
+            <label for="domain">Sisesta domeeni nimi:</label>
+            <input type="text" id="domain" name="domain" required>
+            <button type="button" onclick="checkDomain()">Kontrolli saadavust</button>
+            <p id="domainResult"></p>
+
+            <label for="period">Registreerimise periood:</label>
+            <select id="period" name="period" onchange="updateOrderDetails()">
+                <option value="1">1 aasta</option>
+                <option value="2">2 aastat</option>
+                <option value="3">3 aastat</option>
+            </select>
+
+            <button type="submit">Jätka</button>
+        </form>
     </div>
-  </div>
+
+    <script>
+        function checkDomain() {
+            const domainName = document.getElementById('domain').value;
+            const domainResult = document.getElementById('domainResult');
+            
+            if (domainName) {
+                domainResult.textContent = `${domainName} on saadaval!`; // Simple message, you can implement real domain check
+                domainResult.style.color = "green";
+            } else {
+                domainResult.textContent = "Sisesta domeeni nimi!";
+                domainResult.style.color = "red";
+            }
+        }
+
+        // Function to update the order summary dynamically
+        function updateOrderDetails() {
+            const period = document.getElementById('period').value;
+            const domainName = document.getElementById('domain').value || 'saadaval.ee.ee';  // Default if no domain is entered
+            
+            let periodText = '';
+            let price = 8.37;  // Base price for 1 year
+            let totalPrice = 10.21; // Example total for 1 year
+
+            switch (period) {
+                case '1':
+                    periodText = '(1 aasta)';
+                    price = 8.37;
+                    totalPrice = 10.21;
+                    break;
+                case '2':
+                    periodText = '(2 aastat)';
+                    price = 16.74; // Example price for 2 years
+                    totalPrice = 20.42; // Example total for 2 years
+                    break;
+                case '3':
+                    periodText = '(3 aastat)';
+                    price = 25.11; // Example price for 3 years
+                    totalPrice = 30.33; // Example total for 3 years
+                    break;
+            }
+
+            // Save order details to localStorage
+            localStorage.setItem('domain', domainName);
+            localStorage.setItem('period', periodText);
+            localStorage.setItem('price', price.toFixed(2));
+            localStorage.setItem('totalPrice', totalPrice.toFixed(2));
+        }
+
+        // Event listener for the form submission
+        document.getElementById('domainForm').addEventListener('submit', saveOrderDetails);
+
+        function saveOrderDetails(event) {
+            event.preventDefault(); // Prevents form from submitting and reloading the page
+
+            const period = document.getElementById('period').value;
+            const domainName = document.getElementById('domain').value || 'saadaval.ee.ee'; // Default domain if none entered
+            
+            let periodText = '';
+            let price = 8.37;  // Base price for 1 year
+            let totalPrice = 10.21; // Example total for 1 year
+
+            switch (period) {
+                case '1':
+                    periodText = '(1 aasta)';
+                    price = 8.37;
+                    totalPrice = 10.21;
+                    break;
+                case '2':
+                    periodText = '(2 aastat)';
+                    price = 16.74; // Example price for 2 years
+                    totalPrice = 20.42; // Example total for 2 years
+                    break;
+                case '3':
+                    periodText = '(3 aastat)';
+                    price = 25.11; // Example price for 3 years
+                    totalPrice = 30.33; // Example total for 3 years
+                    break;
+            }
+
+            // Save order details to localStorage
+            localStorage.setItem('domain', domainName);
+            localStorage.setItem('period', periodText);
+            localStorage.setItem('price', price.toFixed(2));
+            localStorage.setItem('totalPrice', totalPrice.toFixed(2));
+
+            // Redirect to step2.html
+            window.location.href = "step2.html";  // Redirect to next step
+        }
+    </script>
 </body>
 </html>
