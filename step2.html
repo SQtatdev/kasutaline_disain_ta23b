@@ -12,38 +12,78 @@
     <div class="steps">
       <div class="step">1</div>
       <div class="step active">2</div>
+      <h3> Logging In</h3>
       <div class="step">3</div>
     </div>
 
     <div class="form-section">
       <label for="user-type">Kasutajatüüp</label>
-      <select id="user-type">
+      <select id="user-type" onchange="toggleFields()">
         <option value="private">Eraisik</option>
         <option value="business">Ettevõte</option>
       </select>
-
+    
       <label for="language">Suhtluskeel</label>
       <select id="language">
         <option value="et">Eesti (ET)</option>
         <option value="en">Inglise (EN)</option>
       </select>
-
-      <label for="first-name">Eesnimi</label>
-      <input type="text" id="first-name" placeholder="Eesnimi">
-
-      <label for="last-name">Perekonnanimi</label>
-      <input type="text" id="last-name" placeholder="Perekonnanimi">
-
+    
+      <div id="private-fields">
+        <label for="first-name">Eesnimi</label>
+        <input type="text" id="first-name" placeholder="Eesnimi">
+    
+        <label for="last-name">Perekonnanimi</label>
+        <input type="text" id="last-name" placeholder="Perekonnanimi">
+      </div>
+    
+      <div id="business-fields" style="display: none;">
+        <label for="company-name">Ettevõtte nimi</label>
+        <input type="text" id="company-name" placeholder="Ettevõtte nimi">
+      </div>
+    
       <label for="username">Soovitud kasutajanimi</label>
       <input type="text" id="username" placeholder="Kasutajanimi">
-
+    
       <label for="password">Salasõna</label>
       <input type="password" id="password" placeholder="Salasõna">
-
+    
       <label for="confirm-password">Korda salasõna</label>
       <input type="password" id="confirm-password" placeholder="Korda salasõna">
-
+    
       <a href="step3.html" class="continue-button">Jätka</a>
+    </div>
+    
+    <script>
+      function toggleFields() {
+        const userType = document.getElementById('user-type').value;
+        const privateFields = document.getElementById('private-fields');
+        const businessFields = document.getElementById('business-fields');
+    
+        if (userType === 'business') {
+          privateFields.style.display = 'none';
+          businessFields.style.display = 'block';
+        } else {
+          privateFields.style.display = 'block';
+          businessFields.style.display = 'none';
+        }
+      }
+    </script>
+    
+  </div>
+  
+    <div>
+      <h3>Tellimus</h3>
+      <div class="order-item">
+        <span class="tag">vjatseslavrovlin.ee </span>
+        <span>Registreering (1 aasta)</span>
+        <button class="cancel-button">✖</button>
+      </div>
+
+      <div class="order-total">
+        <span>8.37 € + km</span>
+        <span>(10.21 €)</span>
+      </div>
     </div>
   </div>
 </body>
