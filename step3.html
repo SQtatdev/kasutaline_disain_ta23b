@@ -4,25 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thank You</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="container">
+<body class="bg-light">
+  <div class="container mt-5 p-4 bg-white shadow rounded text-center">
+    
+    <div class="mb-4">
+      <h3>Thanks!</h3>
+    </div>
 
-    <div class="steps">
+    <div class="steps d-flex justify-content-between mb-4">
       <div class="step">1</div>
       <div class="step">2</div>
       <div class="step active">3</div>
-      <h3> Thanks!</h3>
     </div>
 
     <div class="thank-you-section">
-      <h1>Thank You!</h1>
-      <p>Aitäh Vjatseslav Rovlin, et oled meie klient!</p>
-      <p>Tellimus on kätte saadud ja täidetakse kohe peale arve laekumist.</p>
-      <p>Arve ja tellimuse kokkuvõte on saadetud meilile **email@gmail.com**.</p>
-      <a href="invoice.pdf" class="download-link">Link arve alla laadimiseks</a>
+      <h1 class="text-success">Thank You!</h1>
+      <p class="fs-5">Aitäh <strong>Vjatseslav Rovlin</strong>, et oled meie klient!</p>
+      <p class="fs-5">Tellimus on kätte saadud ja täidetakse kohe peale arve laekumist.</p>
+      <p class="fs-5">Arve ja tellimuse kokkuvõte on saadetud meilile <strong class="text-primary">email@gmail.com</strong>.</p>
+      <a href="invoice.pdf" class="btn btn-primary mt-3">Link arve alla laadimiseks</a>
     </div>
   </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
