@@ -1,63 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="et">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Domain Search</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1. samm - Domeeni valik</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container mt-5 p-4 bg-white shadow rounded">
-    <div class="row mb-4">
-      <div class="col text-center">
-        <h3>Find Domain</h3>
-      </div>
-    </div>
-
-    <div class="steps d-flex justify-content-between mb-4">
-      <div class="step active">1</div>
-      <div class="step">2</div>
-      <div class="step">3</div>
-    </div>
-
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Enter domain name" id="domain-input">
-          <select class="form-select">
-            <option>.ee</option>
-            <option>.com</option>
-            <option>.org</option>
-          </select>
-          <button class="btn btn-primary">OTSI</button>
+    <div class="container mt-5 p-4 bg-white shadow rounded">
+        <div class="stepper d-flex justify-content-between mb-4">
+            <div class="step active">1</div>
+            <div class="step">2</div>
+            <div class="step">3</div>
         </div>
-      </div>
+        <h2 class="text-center">Vali domeen</h2>
+        
+        <form id="domainForm" class="text-center">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="domain" placeholder="Sisesta domeeni nimi" required>
+                        <select class="form-select" id="domainExtension">
+                            <option>.ee</option>
+                            <option>.com</option>
+                            <option>.org</option>
+                        </select>
+                        <button type="button" class="btn btn-primary" onclick="checkDomain()">Kontrolli saadavust</button>
+                    </div>
+                    <p id="domainResult" class="text-success"></p>
+
+                    <label for="period">Registreerimise periood:</label>
+                    <select id="period" class="form-select w-auto d-inline" onchange="updateOrderSummary()">
+                        <option value="1">1 aasta</option>
+                        <option value="2">2 aastat</option>
+                        <option value="3">3 aastat</option>
+                    </select>
+                </div>
+
+                <!-- Right Order Summary Section -->
+                <div class="col-md-4 d-flex flex-column align-items-center order-md-last mt-3 mt-md-0">
+                    <div class="mt-4 p-3 bg-light rounded text-center w-100">
+                        <h3>Tellimus</h3>
+                        <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                            <span class="fw-bold text-success" id="order-item-name">saadaval.ee.ee</span>
+                            <span id="order-item-duration">(1 aasta) 8.37 € + km</span>
+                            <button class="btn btn-danger btn-sm" onclick="removeItem()">✖</button>
+                        </div>
+
+                        <div class="order-total text-center mt-3">
+                            <span id="order-total-price">8.37 € + km</span> <br>
+                            <span class="fw-bold" id="order-total-including">(10.21 €)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="button" class="btn btn-success w-100 mt-3" onclick="goToStep2()">Jätka</button>
+        </form>
     </div>
 
-    <div class="text-center domain-status success">
-      <p>vjatseslavrovlin.ee is available.</p>
-    </div>
+    <!-- JavaScript -->
+    <script>
+        // Обновление данных в разделе "Order Summary"
+        function updateOrderSummary() {
+            const domainName = document.getElementById('domain').value || 'saadaval.ee';
+            const domainExt = document.getElementById('domainExtension').value;
+            const period = document.getElementById('period').value;
+            const pricePerYear = 8.37; // Цена за 1 год
 
-    <div class="order-section mt-4">
-      <div class="order-summary p-3 bg-light rounded">
-        <h3>Tellimus</h3>
-        <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-          <span>vjatseslavrovlin.ee</span>
-          <span>(1 aasta) 8.37 € + km</span>
-          <button class="btn btn-danger btn-sm">✖</button>
-        </div>
-        <div class="order-total text-center mt-3">
-          <span>8.37 € + km</span> <br>
-          <span class="fw-bold">(10.21 €)</span>
-        </div>
-      </div>
-      <div class="text-center mt-3">
-        <a href="step2.html" class="btn btn-success w-100">Jätka</a>
-      </div>
-    </div>
-  </div>
+            // Расчет цены в зависимости от выбранного периода
+            const price = pricePerYear * period;
+            const totalPrice = price * 1.22; // Добавляем НДС 22%
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            // Обновляем данные в разделе "Order Summary"
+            document.getElementById('order-item-name').textContent = domainName + domainExt;
+            document.getElementById('order-item-duration').textContent = `(${period} aastat) ${price.toFixed(2)} € + km`;
+            document.getElementById('order-total-price').textContent = `${price.toFixed(2)} € + km`;
+            document.getElementById('order-total-including').textContent = `(${totalPrice.toFixed(2)} €)`;
+        }
+
+        // Обработчик для кнопки "Kontrolli saadavust"
+        function checkDomain() {
+            const domainName = document.getElementById('domain').value;
+            const domainExt = document.getElementById('domainExtension').value;
+            const domainResult = document.getElementById('domainResult');
+            
+            if (domainName) {
+                domainResult.textContent = `${domainName}${domainExt} on saadaval!`;
+                domainResult.style.color = "green";
+            } else {
+                domainResult.textContent = "Sisesta domeeni nimi!";
+                domainResult.style.color = "red";
+            }
+        }
+
+        // Слушаем изменения в форме
+        document.getElementById('domain').addEventListener('input', updateOrderSummary);
+        document.getElementById('domainExtension').addEventListener('change', updateOrderSummary);
+        document.getElementById('period').addEventListener('change', updateOrderSummary);
+
+        // Инициализация при загрузке страницы
+        updateOrderSummary();
+
+        // Функция для удаления элемента (для кнопки ✖)
+        function removeItem() {
+            document.getElementById('order-item-name').textContent = '-';
+            document.getElementById('order-item-duration').textContent = '(1 aasta) 8.37 € + km';
+            document.getElementById('order-total-price').textContent = '8.37 € + km';
+            document.getElementById('order-total-including').textContent = '(10.21 €)';
+        }
+
+        // Функция для перехода на step2.html с сохранением данных в localStorage
+        function goToStep2() {
+            // Сохранение данных в localStorage
+            localStorage.setItem('domain', document.getElementById('domain').value);
+            localStorage.setItem('period', document.getElementById('period').value);
+            localStorage.setItem('price', (8.37 * document.getElementById('period').value).toFixed(2));
+            const totalPrice = (8.37 * document.getElementById('period').value * 1.22).toFixed(2);
+            localStorage.setItem('totalPrice', totalPrice);
+
+            // Переход на step2.html
+            window.location.href = 'step2.html';
+        }
+    </script>
 </body>
 </html>
