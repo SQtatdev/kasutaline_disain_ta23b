@@ -22,7 +22,6 @@
     </div>
 
     <div class="row">
-      <!-- Основная форма слева -->
       <div class="col-12 col-md-8 order-2 order-md-1">
         <form id="invoiceForm">
           <div class="mb-3">
@@ -57,7 +56,13 @@
               <label for="company-name" class="form-label">Ettevõtte nimi</label>
               <input type="text" id="company-name" class="form-control" placeholder="Ettevõtte nimi">
             </div>
-          </div>
+
+            <div class="mb-3">
+              <label for="company-id" class="form-label">Ettevõtte registrii kood</label>
+              <input type="text" id="company-id" class="form-control" placeholder="Ettevõtte registrii kood">
+            </div>
+
+          </div> 
 
           <div class="mb-3">
             <label for="email" class="form-label">E-posti aadress</label>
@@ -65,6 +70,10 @@
           </div>
 
           <div class="text-center">
+            <b>
+              <label class="mb-3"> Olen lepingu läbi lugenud ja nõustun kasutajatingimustega</label>
+            </b>
+            <input class="mb-3" type="checkbox">  
             <a href="step3.html" class="btn btn-success w-100">Jätka</a>
           </div>
         </form>
